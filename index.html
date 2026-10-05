@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artigiano dal Futuro | Banconi Bar, Catering, Banqueting e Arredo</title>
+  <meta name="description" content="Artigiano dal Futuro progetta e realizza banconi bar, soluzioni per catering e banqueting, arredi per interni ed esterni e articoli per il mondo bar catering.">
+  <meta name="theme-color" content="#050505">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:site_name" content="Artigiano dal Futuro">
+  <meta property="og:title" content="Artigiano dal Futuro | Banconi Bar, Catering, Banqueting e Arredo">
+  <meta property="og:description" content="Artigiano dal Futuro progetta e realizza banconi bar, soluzioni per catering e banqueting, arredi per interni ed esterni e articoli per il mondo bar catering.">
+  <meta property="og:image" content="assets/logo-completo-su-nero.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/logo-completo-su-nero.png">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Schema.org: solo informazioni realmente disponibili -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Artigiano dal Futuro",
+    "slogan": "Dal futuro",
+    "description": "Progettazione, realizzazione e noleggio di soluzioni per bar, catering, banqueting e ambienti contemporanei.",
+    "sameAs": ["https://www.instagram.com/artigiano_dal_futuro_/"]
+  }
+  </script>
+
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+
+  <!-- Indicatore di avanzamento scroll -->
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- Logo animato: dal centro della hero alla navbar durante lo scroll -->
+  <div class="logo-fly" aria-hidden="true">
+    <span class="logo-box"><img src="assets/logo-completo-su-nero.png" alt="" width="981" height="570"></span>
+  </div>
+
+  <!-- Cursore custom (solo desktop) -->
+  <div class="cursor" aria-hidden="true"></div>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="site-header" id="top">
+    <nav class="nav" aria-label="Navigazione principale">
+      <a class="nav__logo" href="#hero" aria-label="Artigiano dal Futuro — torna all'inizio">
+        <span class="logo-box"><img src="assets/logo-completo-su-nero.png" alt="Artigiano dal Futuro" width="981" height="570"></span>
+      </a>
+
+      <ul class="nav__center" role="list">
+        <li><a href="#chi-siamo">Chi siamo</a></li>
+        <li><a href="#servizi">Servizi</a></li>
+        <li><a href="#progetti">Progetti</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <a class="nav__link" href="#contatti">Contatti</a>
+        <a class="btn btn--outline btn--sm" href="#richiedi-progetto">Richiedi un progetto</a>
+      </div>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Apri il menu">
+        <span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Menu mobile fullscreen -->
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <ul role="list">
+        <li><a href="#chi-siamo"><small>01</small>Chi siamo</a></li>
+        <li><a href="#servizi"><small>02</small>Servizi</a></li>
+        <li><a href="#progetti"><small>03</small>Progetti</a></li>
+        <li><a href="#contatti"><small>04</small>Contatti</a></li>
+      </ul>
+      <a class="btn btn--solid btn--block" href="#richiedi-progetto">Richiedi un progetto <span aria-hidden="true">→</span></a>
+      <a class="mobile-menu__ig" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= HERO =================
+         Scena 3D a tutto schermo. Con lo scroll il logo centrale
+         si sposta nella navbar e compaiono headline e CTA. -->
+    <section id="hero" class="hero" aria-labelledby="hero-title">
+      <div class="hero__sticky">
+        <!-- Scena 3D (Three.js) -->
+        <div class="hero__canvas" id="hero-canvas" role="img" aria-label="Scena 3D astratta di un bancone bar: volumi neri, piano bianco satinato, sgabelli e dettagli metallici."></div>
+        <div class="hero__shade" aria-hidden="true"></div>
+
+        <!-- Posizione di partenza del logo (al centro) -->
+        <div class="hero__logo-slot">
+          <span class="logo-box"><img src="assets/logo-completo-su-nero.png" alt="Artigiano dal Futuro" width="981" height="570" fetchpriority="high"></span>
+        </div>
+
+        <div class="hero__content container">
+          <div class="hero__main">
+            <p class="eyebrow hero__eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Bar · Catering · Banqueting · Arredo</p>
+            <h1 class="hero__title" id="hero-title">
+              <span class="line"><span>Progettiamo il futuro</span></span>
+              <span class="line"><span>dell'ospitalità.</span></span>
+            </h1>
+          </div>
+          <div class="hero__side">
+            <p class="hero__subtitle">Progettazione, realizzazione e noleggio di soluzioni per bar, catering, banqueting e ambienti contemporanei.</p>
+            <div class="hero__ctas">
+              <a class="btn btn--solid" href="#richiedi-progetto">Richiedi un progetto <span aria-hidden="true">→</span></a>
+              <a class="btn btn--ghost" href="#servizi">Scopri i servizi <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+        </div>
+
+        <a class="hero__scroll" href="#chi-siamo" aria-label="Scorri alla sezione Chi siamo">
+          <span>Scroll</span><i aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ================= MARQUEE ================= -->
+    <div class="marquee" role="region" aria-label="Artigianalità, design, funzionalità, futuro">
+      <div class="marquee__track" aria-hidden="true">
+        <span>Artigianalità</span><i>•</i><span>Design</span><i>•</i><span>Funzionalità</span><i>•</i><span>Futuro</span><i>•</i>
+        <span>Artigianalità</span><i>•</i><span>Design</span><i>•</i><span>Funzionalità</span><i>•</i><span>Futuro</span><i>•</i>
+        <span>Artigianalità</span><i>•</i><span>Design</span><i>•</i><span>Funzionalità</span><i>•</i><span>Futuro</span><i>•</i>
+        <span>Artigianalità</span><i>•</i><span>Design</span><i>•</i><span>Funzionalità</span><i>•</i><span>Futuro</span><i>•</i>
+      </div>
+    </div>
+
+    <!-- ================= CHI SIAMO ================= -->
+    <section id="chi-siamo" class="section about" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div class="about__head">
+          <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Chi siamo</p>
+          <h2 class="h2 reveal" id="about-title">Dal saper fare<br>al saper immaginare.</h2>
+        </div>
+
+        <figure class="about__media media reveal-img" data-placeholder="assets/about.jpg">
+          <!-- Sostituire con una fotografia reale dell'attività (es. da Instagram) -->
+          <img src="assets/about.jpg" alt="Artigiano dal Futuro — fotografia dell'attività" loading="lazy" decoding="async" width="1200" height="1500" data-parallax>
+        </figure>
+
+        <div class="about__text">
+          <p class="lead reveal">Artigiano dal Futuro nasce dall'incontro tra esperienza artigianale, progettazione e visione contemporanea.</p>
+          <p class="reveal">Progettiamo e realizziamo soluzioni pensate per valorizzare spazi, eventi e attività nel mondo dell'hospitality.</p>
+          <p class="reveal">Ogni progetto nasce dall'ascolto delle esigenze del cliente e prende forma attraverso materiali, funzionalità e design.</p>
+
+          <ul class="about__values reveal" role="list">
+            <li><span>01</span>Artigianalità</li>
+            <li><span>02</span>Design</li>
+            <li><span>03</span>Su misura</li>
+            <li><span>04</span>Futuro</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVIZI ================= -->
+    <section id="servizi" class="section services" aria-labelledby="services-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Servizi</p>
+          <h2 class="h2 reveal" id="services-title">Cosa realizziamo</h2>
+        </header>
+
+        <div class="services__list">
+          <article class="service reveal">
+            <span class="service__num" aria-hidden="true">01</span>
+            <div class="service__body">
+              <h3 class="service__title">Progettazione e realizzazione <br>banconi bar</h3>
+              <p>Progettiamo e realizziamo banconi bar su misura, pensati per integrarsi con lo spazio, il concept e le esigenze operative del locale.</p>
+              <a class="link-arrow" href="#richiedi-progetto" data-project-type="Bancone bar">Scopri <span aria-hidden="true">→</span><span class="sr-only"> — richiedi un progetto di bancone bar</span></a>
+            </div>
+            <figure class="service__media media" data-placeholder="assets/servizio-01.jpg">
+              <img src="assets/servizio-01.jpg" alt="Bancone bar realizzato da Artigiano dal Futuro" loading="lazy" decoding="async" width="1200" height="900">
+            </figure>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num" aria-hidden="true">02</span>
+            <div class="service__body">
+              <h3 class="service__title">Catering <br>&amp; banqueting</h3>
+              <p>Articoli e soluzioni per catering e banqueting, pensati per eventi, allestimenti e occasioni speciali.</p>
+              <a class="link-arrow" href="#richiedi-progetto" data-project-type="Catering">Scopri <span aria-hidden="true">→</span><span class="sr-only"> — richiedi informazioni su catering e banqueting</span></a>
+            </div>
+            <figure class="service__media media" data-placeholder="assets/servizio-02.jpg">
+              <img src="assets/servizio-02.jpg" alt="Allestimento per catering e banqueting di Artigiano dal Futuro" loading="lazy" decoding="async" width="1200" height="900">
+            </figure>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num" aria-hidden="true">03</span>
+            <div class="service__body">
+              <h3 class="service__title">Arredo <br>interni &amp; esterni</h3>
+              <p>Soluzioni d'arredo per ambienti interni ed esterni, con attenzione a estetica, funzionalità e personalizzazione.</p>
+              <a class="link-arrow" href="#richiedi-progetto" data-project-type="Arredo interno">Scopri <span aria-hidden="true">→</span><span class="sr-only"> — richiedi un progetto d'arredo</span></a>
+            </div>
+            <figure class="service__media media" data-placeholder="assets/servizio-03.jpg">
+              <img src="assets/servizio-03.jpg" alt="Arredo per interni ed esterni di Artigiano dal Futuro" loading="lazy" decoding="async" width="1200" height="900">
+            </figure>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num" aria-hidden="true">04</span>
+            <div class="service__body">
+              <h3 class="service__title">Vendita &amp; noleggio <br>bar catering</h3>
+              <p>Vendita e noleggio di articoli e attrezzature per il mondo bar e catering.</p>
+              <a class="link-arrow" href="#richiedi-progetto" data-project-type="Noleggio">Scopri <span aria-hidden="true">→</span><span class="sr-only"> — richiedi informazioni su vendita e noleggio</span></a>
+            </div>
+            <figure class="service__media media" data-placeholder="assets/servizio-04.jpg">
+              <img src="assets/servizio-04.jpg" alt="Articoli e attrezzature bar catering di Artigiano dal Futuro" loading="lazy" decoding="async" width="1200" height="900">
+            </figure>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HASHTAG ================= -->
+    <section class="hashtags" aria-label="Hashtag Instagram">
+      <ul class="hashtags__list container" role="list">
+        <li class="reveal">#banconibar</li>
+        <li class="reveal">#catering</li>
+        <li class="reveal">#banqueting</li>
+        <li class="reveal">#interni</li>
+        <li class="reveal">#esterni</li>
+        <li class="reveal">#barcatering</li>
+      </ul>
+    </section>
+
+    <!-- ================= PROGETTI ================= -->
+    <!--
+      NOTA: sostituire immagini, titoli e descrizioni con i progetti reali
+      (es. fotografie pubblicate su Instagram). I testi attuali descrivono
+      soltanto le categorie di lavoro, non progetti specifici.
+    -->
+    <section id="progetti" class="section projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Portfolio</p>
+            <h2 class="h2 reveal" id="projects-title">Progetti</h2>
+          </div>
+          <p class="section-head__sub reveal">Soluzioni progettate per diventare parte dello spazio.</p>
+        </header>
+
+        <div class="projects__grid">
+          <button class="project project--large reveal" type="button"
+            data-title="Bancone bar su misura" data-category="Banconi bar"
+            data-description="Progettazione e realizzazione di un bancone bar su misura, integrato con lo spazio e le esigenze operative del locale."
+            data-src="assets/project-01.jpg">
+            <span class="project__media media reveal-img" data-placeholder="assets/project-01.jpg">
+              <img src="assets/project-01.jpg" alt="Bancone bar su misura" loading="lazy" decoding="async" width="1400" height="1600">
+            </span>
+            <span class="project__info">
+              <span class="project__cat">Banconi bar</span>
+              <span class="project__title">Bancone bar su misura</span>
+            </span>
+          </button>
+
+          <button class="project project--small reveal" type="button"
+            data-title="Allestimento catering" data-category="Catering"
+            data-description="Articoli e soluzioni per il servizio catering, pensati per funzionalità ed estetica durante l'evento."
+            data-src="assets/project-02.jpg">
+            <span class="project__media media reveal-img" data-placeholder="assets/project-02.jpg">
+              <img src="assets/project-02.jpg" alt="Allestimento catering" loading="lazy" decoding="async" width="1200" height="900">
+            </span>
+            <span class="project__info">
+              <span class="project__cat">Catering</span>
+              <span class="project__title">Allestimento catering</span>
+            </span>
+          </button>
+
+          <button class="project project--small reveal" type="button"
+            data-title="Allestimento banqueting" data-category="Banqueting"
+            data-description="Soluzioni per banqueting pensate per eventi, allestimenti e occasioni speciali."
+            data-src="assets/project-03.jpg">
+            <span class="project__media media reveal-img" data-placeholder="assets/project-03.jpg">
+              <img src="assets/project-03.jpg" alt="Allestimento banqueting" loading="lazy" decoding="async" width="1200" height="900">
+            </span>
+            <span class="project__info">
+              <span class="project__cat">Banqueting</span>
+              <span class="project__title">Allestimento banqueting</span>
+            </span>
+          </button>
+
+          <button class="project project--wide reveal" type="button"
+            data-title="Arredo per esterni" data-category="Arredo"
+            data-description="Soluzioni d'arredo per ambienti esterni, con attenzione a estetica, funzionalità e personalizzazione."
+            data-src="assets/project-04.jpg">
+            <span class="project__media media reveal-img" data-placeholder="assets/project-04.jpg">
+              <img src="assets/project-04.jpg" alt="Arredo per esterni" loading="lazy" decoding="async" width="2100" height="900">
+            </span>
+            <span class="project__info">
+              <span class="project__cat">Arredo</span>
+              <span class="project__title">Arredo per esterni</span>
+            </span>
+          </button>
+
+          <button class="project project--medium reveal" type="button"
+            data-title="Arredo per interni" data-category="Arredo"
+            data-description="Soluzioni d'arredo per ambienti interni, progettate su misura per lo spazio."
+            data-src="assets/project-05.jpg">
+            <span class="project__media media reveal-img" data-placeholder="assets/project-05.jpg">
+              <img src="assets/project-05.jpg" alt="Arredo per interni" loading="lazy" decoding="async" width="1200" height="1500">
+            </span>
+            <span class="project__info">
+              <span class="project__cat">Arredo</span>
+              <span class="project__title">Arredo per interni</span>
+            </span>
+          </button>
+
+          <button class="project project--tall reveal" type="button"
+            data-title="Noleggio attrezzature bar catering" data-category="Noleggio"
+            data-description="Vendita e noleggio di articoli e attrezzature per il mondo bar e catering."
+            data-src="assets/project-06.jpg">
+            <span class="project__media media reveal-img" data-placeholder="assets/project-06.jpg">
+              <img src="assets/project-06.jpg" alt="Attrezzature bar catering a noleggio" loading="lazy" decoding="async" width="1400" height="1000">
+            </span>
+            <span class="project__info">
+              <span class="project__cat">Noleggio</span>
+              <span class="project__title">Noleggio attrezzature bar catering</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROCESSO ================= -->
+    <section id="processo" class="section process" aria-labelledby="process-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Metodo</p>
+          <h2 class="h2 reveal" id="process-title">Dal concept<br>alla realizzazione.</h2>
+        </header>
+
+        <ol class="process__steps" role="list">
+          <li class="process__line" aria-hidden="true"><span></span></li>
+          <li class="step">
+            <span class="step__num">01</span>
+            <h3 class="step__title">Ascolto</h3>
+            <p>Partiamo dalle esigenze del cliente, dallo spazio e dal concept dell'attività.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">02</span>
+            <h3 class="step__title">Progettazione</h3>
+            <p>Definiamo forme, materiali e funzionalità di ogni elemento.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">03</span>
+            <h3 class="step__title">Realizzazione</h3>
+            <p>Il progetto prende forma attraverso la lavorazione artigianale.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">04</span>
+            <h3 class="step__title">Consegna</h3>
+            <p>La soluzione entra a far parte dello spazio, pronta all'uso.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= CALL TO ACTION ================= -->
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="container cta__inner">
+        <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Nuovo progetto</p>
+        <h2 class="cta__title reveal" id="cta-title">Hai un progetto<br>in mente?</h2>
+        <p class="cta__text reveal">Raccontaci cosa hai in mente. Costruiamo insieme la soluzione più adatta al tuo spazio, al tuo evento o alla tua attività.</p>
+        <a class="btn btn--solid btn--xl reveal" href="#richiedi-progetto">Richiedi un progetto <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- ================= FORM RICHIEDI UN PROGETTO ================= -->
+    <section id="richiedi-progetto" class="section request" aria-labelledby="request-title">
+      <div class="container request__grid">
+        <div class="request__intro">
+          <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Richiedi un progetto</p>
+          <h2 class="h2 reveal" id="request-title">Raccontaci<br>il tuo progetto.</h2>
+          <p class="reveal">Compila il modulo con qualche informazione: ti ricontatteremo per approfondire esigenze, spazi e tempistiche.</p>
+          <p class="request__note reveal">I campi contrassegnati da <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> sono obbligatori.</p>
+        </div>
+
+        <form class="form" id="project-form" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="f-name">Nome e cognome <span aria-hidden="true">*</span></label>
+              <input id="f-name" name="nome" type="text" autocomplete="name" required aria-describedby="f-name-err">
+              <p class="field__error" id="f-name-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="f-email">Email <span aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-email-err">
+              <p class="field__error" id="f-email-err" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-phone">Telefono</label>
+              <input id="f-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="f-phone-err">
+              <p class="field__error" id="f-phone-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="f-type">Tipologia di progetto <span aria-hidden="true">*</span></label>
+              <div class="select">
+                <select id="f-type" name="tipologia" required aria-describedby="f-type-err">
+                  <option value="">Seleziona</option>
+                  <option>Bancone bar</option>
+                  <option>Catering</option>
+                  <option>Banqueting</option>
+                  <option>Arredo interno</option>
+                  <option>Arredo esterno</option>
+                  <option>Vendita articoli</option>
+                  <option>Noleggio</option>
+                  <option>Altro</option>
+                </select>
+              </div>
+              <p class="field__error" id="f-type-err" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-budget">Budget indicativo</label>
+              <div class="select">
+                <select id="f-budget" name="budget">
+                  <option value="">Seleziona</option>
+                  <option>Fino a 5.000 €</option>
+                  <option>5.000 – 15.000 €</option>
+                  <option>15.000 – 30.000 €</option>
+                  <option>Oltre 30.000 €</option>
+                  <option>Da definire</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-time">Tempistiche</label>
+              <div class="select">
+                <select id="f-time" name="tempistiche">
+                  <option value="">Seleziona</option>
+                  <option>Il prima possibile</option>
+                  <option>Entro 1 mese</option>
+                  <option>1 – 3 mesi</option>
+                  <option>3 – 6 mesi</option>
+                  <option>Oltre 6 mesi</option>
+                  <option>Da definire</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-message">Messaggio <span aria-hidden="true">*</span></label>
+            <textarea id="f-message" name="messaggio" rows="6" placeholder="Raccontaci il tuo progetto..." required aria-describedby="f-message-err"></textarea>
+            <p class="field__error" id="f-message-err" aria-live="polite"></p>
+          </div>
+
+          <div class="field field--check">
+            <input id="f-privacy" name="privacy" type="checkbox" required aria-describedby="f-privacy-err">
+            <label for="f-privacy">Ho letto l'<a href="#privacy" data-legal="privacy">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato. <span aria-hidden="true">*</span></label>
+            <p class="field__error" id="f-privacy-err" aria-live="polite"></p>
+          </div>
+
+          <div class="form__footer">
+            <button class="btn btn--solid btn--xl" type="submit">Invia richiesta <span aria-hidden="true">→</span></button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= SOCIAL ================= -->
+    <section id="social" class="section social" aria-labelledby="social-title">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Seguici sui social</p>
+            <h2 class="h2 reveal" id="social-title">Scopri i nostri progetti, le realizzazioni e il dietro le quinte.</h2>
+          </div>
+          <a class="social__link reveal" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer">
+            Instagram <span aria-hidden="true">→</span><span class="sr-only"> (si apre in una nuova scheda)</span>
+          </a>
+        </header>
+
+        <!-- Sostituire i file in /assets con fotografie reali pubblicate su Instagram -->
+        <ul class="social__grid" role="list">
+          <li><a class="media" data-placeholder="assets/project-01.jpg" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer"><img src="assets/project-01.jpg" alt="Post Instagram di Artigiano dal Futuro" loading="lazy" decoding="async" width="600" height="600"></a></li>
+          <li><a class="media" data-placeholder="assets/project-02.jpg" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer"><img src="assets/project-02.jpg" alt="Post Instagram di Artigiano dal Futuro" loading="lazy" decoding="async" width="600" height="600"></a></li>
+          <li><a class="media" data-placeholder="assets/project-03.jpg" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer"><img src="assets/project-03.jpg" alt="Post Instagram di Artigiano dal Futuro" loading="lazy" decoding="async" width="600" height="600"></a></li>
+          <li><a class="media" data-placeholder="assets/project-04.jpg" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer"><img src="assets/project-04.jpg" alt="Post Instagram di Artigiano dal Futuro" loading="lazy" decoding="async" width="600" height="600"></a></li>
+          <li><a class="media" data-placeholder="assets/project-05.jpg" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer"><img src="assets/project-05.jpg" alt="Post Instagram di Artigiano dal Futuro" loading="lazy" decoding="async" width="600" height="600"></a></li>
+          <li><a class="media" data-placeholder="assets/project-06.jpg" href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer"><img src="assets/project-06.jpg" alt="Post Instagram di Artigiano dal Futuro" loading="lazy" decoding="async" width="600" height="600"></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= CONTATTI ================= -->
+    <section id="contatti" class="section contacts" aria-labelledby="contacts-title">
+      <div class="container contacts__grid">
+        <div>
+          <p class="eyebrow reveal"><span class="eyebrow__line" aria-hidden="true"></span>Contatti</p>
+          <h2 class="h2 reveal" id="contacts-title">Parliamo del tuo prossimo progetto.</h2>
+        </div>
+        <!-- Popolato da script.js con i soli dati configurati -->
+        <dl class="contacts__list reveal" id="contacts-list">
+          <div class="contact">
+            <dt>Instagram</dt>
+            <dd><a href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer">@artigiano_dal_futuro_ <span aria-hidden="true">↗</span></a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <a class="footer__logo" href="#hero" aria-label="Artigiano dal Futuro — torna all'inizio">
+          <span class="logo-box"><img src="assets/logo-completo-su-nero.png" alt="Artigiano dal Futuro" width="981" height="570" loading="lazy"></span>
+        </a>
+        <p class="footer__payoff">Dal futuro</p>
+        <nav aria-label="Navigazione footer">
+          <ul class="footer__nav" role="list">
+            <li><a href="#chi-siamo">Chi siamo</a></li>
+            <li><a href="#servizi">Servizi</a></li>
+            <li><a href="#progetti">Progetti</a></li>
+            <li><a href="#contatti">Contatti</a></li>
+            <li><a href="#richiedi-progetto">Richiedi un progetto</a></li>
+            <li><a href="https://www.instagram.com/artigiano_dal_futuro_/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="footer__word" aria-hidden="true">Artigiano dal Futuro</p>
+      <div class="footer__bottom">
+        <p>© 2026 Artigiano dal Futuro. Tutti i diritti riservati.</p>
+        <ul class="footer__legal" role="list">
+          <li><a href="#privacy" data-legal="privacy">Privacy Policy</a></li>
+          <li><a href="#cookie" data-legal="cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <p class="footer__credit">Web by <a href="https://www.instagram.com/_matteomarino/" target="_blank" rel="noopener noreferrer">Matteo Marino<span class="sr-only"> (Instagram @_matteomarino, si apre in una nuova scheda)</span></a></p>
+    </div>
+  </footer>
+
+  <!-- ================= LIGHTBOX ================= -->
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lb-title">
+    <div class="lightbox__inner">
+      <figure class="lightbox__media media" data-placeholder="">
+        <img src="" alt="" id="lb-img">
+      </figure>
+      <div class="lightbox__info">
+        <p class="lightbox__cat" id="lb-cat"></p>
+        <h3 class="lightbox__title" id="lb-title"></h3>
+        <p class="lightbox__desc" id="lb-desc"></p>
+        <div class="lightbox__nav">
+          <button type="button" class="icon-btn" data-lb="prev" aria-label="Progetto precedente">←</button>
+          <span class="lightbox__count" id="lb-count"></span>
+          <button type="button" class="icon-btn" data-lb="next" aria-label="Progetto successivo">→</button>
+        </div>
+      </div>
+      <button type="button" class="lightbox__close" data-lb="close" aria-label="Chiudi">
+        <span>Chiudi</span><i aria-hidden="true"></i>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- ================= DOCUMENTI LEGALI (placeholder) ================= -->
+  <dialog class="legal" id="legal-dialog" aria-labelledby="legal-title">
+    <h2 id="legal-title">Privacy Policy</h2>
+    <p>Documento in preparazione. Il testo completo verrà pubblicato a breve.</p>
+    <form method="dialog"><button class="btn btn--outline btn--sm">Chiudi</button></form>
+  </dialog>
+</body>
+</html>
