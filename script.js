@@ -56,7 +56,11 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
 
     const update = () => {
       const y = window.scrollY;
-      header.classList.toggle("is-scrolled", y > 24);
+      // Durante la hero 3D la navbar resta trasparente: il blur sopra una scena
+      // che si ridisegna a ogni frame è molto costoso, soprattutto su mobile
+      const heroEl = document.querySelector(".hero--scrolly");
+      const threshold = heroEl ? heroEl.offsetHeight - window.innerHeight - 24 : 24;
+      header.classList.toggle("is-scrolled", y > threshold);
       const max = document.documentElement.scrollHeight - window.innerHeight;
       bar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
       ticking = false;
@@ -464,12 +468,16 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
 
   function initHeroScroll() {
     const hero = $("#hero");
+    const sticky = $(".hero__sticky");
     const slot = $(".hero__logo-slot .logo-box");
     const navBox = $(".nav__logo .logo-box");
     const fly = $(".logo-fly");
     const flyBox = $(".logo-box", fly);
     const content = $(".hero__content");
-    if (!hero || !slot || !navBox || !fly) return;
+    const lines = $$(".hero__title .line > span");
+    const dim = $(".hero__dim");
+    const hint = $(".hero__scroll");
+    if (!hero || !sticky || !slot || !navBox || !fly) return;
 
     // Con reduced motion resta il layout statico (logo centrale, testi visibili)
     if (reducedMotion) return;
@@ -477,60 +485,106 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
     hero.classList.add("hero--scrolly");
     root.classList.add("hero-scrolly-on");
 
-    let ticking = false;
     const LOGO_END = 0.42; // frazione dello scroll della hero dedicata al volo del logo
 
-    const update = () => {
-      ticking = false;
-      const rect = hero.getBoundingClientRect();
-      const distance = hero.offsetHeight - window.innerHeight;
-      const p = Math.min(Math.max(-rect.top / (distance || 1), 0), 1);
-      heroState.progress = p;
-      hero.style.setProperty("--hp", p.toFixed(4));
+    /* Misure in cache: lette solo al resize / cambio navbar, mai durante l'animazione.
+       La distanza usa l'altezza dello sticky (100svh), stabile anche quando
+       la barra degli indirizzi mobile si espande o si riduce. */
+    let distance = 1, heroTop = 0, from = null, to = null;
+    const measure = () => {
+      distance = Math.max(hero.offsetHeight - sticky.offsetHeight, 1);
+      heroTop = hero.getBoundingClientRect().top + window.scrollY;
+      // misura lo slot senza la trasformazione animata del logo
+      const r = slot.getBoundingClientRect(); // lo slot è nello sticky: posizione fissa a schermo
+      from = { left: r.left, top: r.top, width: r.width };
+      flyBox.style.width = `${from.width}px`;
+    };
+    const measureNav = () => {
+      const r = navBox.getBoundingClientRect();
+      to = { left: r.left, top: r.top, width: r.width };
+    };
 
-      // 1) Volo del logo: interpolazione tra slot centrale e logo in navbar
-      const from = slot.getBoundingClientRect();
-      const to = navBox.getBoundingClientRect();
+    // Progress di scroll (target) e valore smorzato (current)
+    const target = () => Math.min(Math.max((window.scrollY - heroTop) / distance, 0), 1);
+    let current = target();
+    let rafId = null;
+    let last = performance.now();
+    let docked = null, contentOn = null;
+
+    const apply = (p) => {
+      heroState.progress = p;
+
+      // 1) Volo del logo: solo transform (compositing GPU)
       const t = easeInOut(Math.min(p / LOGO_END, 1));
       const scale = 1 + (to.width / from.width - 1) * t;
       const x = from.left + (to.left - from.left) * t;
-      // lo slot scorre con la pagina solo prima del sticky: qui è fisso, quindi niente compensazioni
       const y = from.top + (to.top - from.top) * t;
-      flyBox.style.width = `${from.width}px`;
-      fly.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
-      root.classList.toggle("logo-docked", t >= 1);
+      fly.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
+      const isDocked = t >= 0.999;
+      if (isDocked !== docked) { docked = isDocked; root.classList.toggle("logo-docked", isDocked); }
 
-      // 2) Headline, sottotitolo e CTA
+      // 2) Overlay scuro e indicatore scroll: solo opacity
+      dim.style.opacity = Math.max(1 - p * 3, 0).toFixed(3);
+      if (hint) hint.style.opacity = Math.max(1 - p * 5, 0).toFixed(3);
+
+      // 3) Headline, sottotitolo e CTA: solo transform + opacity
       const hc = smooth(0.32, 0.72, p);
-      hero.style.setProperty("--hc", hc.toFixed(4));
-      hero.classList.toggle("is-content-on", hc > 0.6);
+      content.style.opacity = hc.toFixed(3);
+      content.style.transform = `translate3d(0, ${((1 - hc) * 48).toFixed(2)}px, 0)`;
+      const lineY = ((1 - hc) * 105).toFixed(2);
+      lines.forEach((l) => { l.style.transform = `translate3d(0, ${lineY}%, 0)`; });
+      const on = hc > 0.6;
+      if (on !== contentOn) { contentOn = on; hero.classList.toggle("is-content-on", on); }
     };
-    const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
 
-    window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
-    // La navbar si compatta con una transizione: aggiorna fino a fine transizione
-    $(".site-header").addEventListener("transitionend", request);
-    $(".nav__logo .logo-box").addEventListener("transitionend", request);
-    document.fonts?.ready.then(request);
-    update();
+    // Loop attivo solo mentre il valore smorzato insegue lo scroll
+    const tick = (now) => {
+      const dt = Math.min((now - last) / 16.67, 4); // normalizza a 60fps
+      last = now;
+      const goal = target();
+      // smorzamento indipendente dal framerate (morbido ma reattivo)
+      current += (goal - current) * (1 - Math.pow(1 - 0.16, dt));
+      if (Math.abs(goal - current) < 0.0004) current = goal;
+      apply(current);
+      rafId = current === goal ? null : requestAnimationFrame(tick);
+    };
+    const kick = () => {
+      if (rafId) return;
+      last = performance.now();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const remeasure = () => { measure(); measureNav(); apply(current); kick(); };
+
+    window.addEventListener("scroll", kick, { passive: true });
+    window.addEventListener("resize", remeasure);
+    window.addEventListener("orientationchange", remeasure);
+    // La navbar si compatta con una transizione: aggiorna la destinazione del logo
+    navBox.addEventListener("transitionend", () => { measureNav(); apply(current); });
+    document.fonts?.ready.then(remeasure);
+    window.addEventListener("load", remeasure);
+    remeasure();
 
     // Leggera inclinazione 3D del logo seguendo il mouse (solo desktop)
     if (finePointer) {
+      let rx = 0, ry = 0, trx = 0, try_ = 0, tiltRaf = null;
+      const tilt = () => {
+        rx += (trx - rx) * 0.1; ry += (try_ - ry) * 0.1;
+        flyBox.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+        tiltRaf = Math.abs(trx - rx) + Math.abs(try_ - ry) > 0.01 ? requestAnimationFrame(tilt) : null;
+      };
       window.addEventListener("pointermove", (e) => {
-        if (root.classList.contains("logo-docked")) return;
-        const nx = e.clientX / window.innerWidth - 0.5;
-        const ny = e.clientY / window.innerHeight - 0.5;
-        flyBox.style.setProperty("--ry", `${(nx * 14).toFixed(2)}deg`);
-        flyBox.style.setProperty("--rx", `${(-ny * 10).toFixed(2)}deg`);
+        if (docked) return;
+        try_ = (e.clientX / window.innerWidth - 0.5) * 14;
+        trx = -(e.clientY / window.innerHeight - 0.5) * 10;
+        if (!tiltRaf) tiltRaf = requestAnimationFrame(tilt);
       }, { passive: true });
     }
 
     // Accessibilità: se si arriva con Tab sui link della hero, porta i testi in vista
     content.addEventListener("focusin", () => {
-      if (hero.classList.contains("is-content-on")) return;
-      const distance = hero.offsetHeight - window.innerHeight;
-      window.scrollTo({ top: hero.offsetTop + distance * 0.8, behavior: "auto" });
+      if (contentOn) return;
+      window.scrollTo({ top: heroTop + distance * 0.8, behavior: "auto" });
     });
   }
 
@@ -561,7 +615,10 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
 
     /* Renderer */
     const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true, powerPreference: "high-performance" });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 1.75));
+    // Risoluzione adattiva: parte contenuta e scende se i frame rallentano
+    const maxDpr = Math.min(window.devicePixelRatio, isMobile ? 1.25 : 1.5);
+    let dpr = maxDpr;
+    renderer.setPixelRatio(dpr);
     renderer.setClearColor(0x050505, 1);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
@@ -751,11 +808,10 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
     const clock = new THREE.Clock();
     let running = false;
     let rafId = null;
-    let p = heroState.progress; // progress smorzato per una camera morbida
 
-    const renderFrame = (instant = false) => {
+    const renderFrame = () => {
       const t = clock.getElapsedTime();
-      p = instant ? heroState.progress : p + (heroState.progress - p) * 0.08;
+      const p = heroState.progress; // già smorzato da initHeroScroll
       mouse.x += (mouse.tx - mouse.x) * 0.035;
       mouse.y += (mouse.ty - mouse.y) * 0.035;
 
@@ -774,14 +830,26 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
 
       renderer.render(scene, camera);
     };
-    const loop = () => {
+    let frames = 0, slowFrames = 0, lastT = performance.now();
+    const loop = (now = performance.now()) => {
       if (!running) return;
       renderFrame();
+      // ogni 60 frame: se più di un terzo supera ~22ms, riduce la risoluzione
+      const dt = now - lastT; lastT = now;
+      if (dt > 22 && dt < 200) slowFrames++;
+      if (++frames >= 60) {
+        if (slowFrames > 20 && dpr > 0.75) {
+          dpr = Math.max(dpr - 0.25, 0.75);
+          renderer.setPixelRatio(dpr);
+          resize();
+        }
+        frames = 0; slowFrames = 0;
+      }
       rafId = requestAnimationFrame(loop);
     };
     const setRunning = (on) => {
-      if (reducedMotion) { running = false; renderFrame(true); return; } // un frame statico
-      if (on && !running) { running = true; clock.start(); loop(); }
+      if (reducedMotion) { running = false; renderFrame(); return; } // un frame statico
+      if (on && !running) { running = true; lastT = performance.now(); loop(); }
       if (!on) { running = false; cancelAnimationFrame(rafId); }
     };
 
@@ -792,7 +860,7 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module
     }).observe(container);
     document.addEventListener("visibilitychange", () => setRunning(heroVisible && !document.hidden));
 
-    renderFrame(true);
+    renderFrame();
     setRunning(true);
     container.classList.add("is-ready");
   }
